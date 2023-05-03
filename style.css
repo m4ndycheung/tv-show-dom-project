@@ -1,3 +1,7 @@
 #root {
-  color: red;
+  color: lightcoral;
+}
+
+.div-border {
+  border: solid 2px greenyellow;
 }
