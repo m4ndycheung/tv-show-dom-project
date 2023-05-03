@@ -17,7 +17,7 @@ function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
   rootElem.textContent = `Got ${episodeList.length} episode(s)`;
 
-  // add for loop in here to do stuff to each array object
+  // add for loop in here to do stuff to each episode in the array object
   for (const episode of episodeList) {
     // 1. create some elements (divs, h3, img, p)
     // 2. assign content to those elements
@@ -26,7 +26,7 @@ function makePageForEpisodes(episodeList) {
     // div that contains episode data
     let episodeCard = document.createElement("div");
 
-    // title h3 heading
+    // title heading
     let episodeTitleBox = document.createElement("div");
     let episodeTitleElement = document.createElement("h3");
     episodeTitleElement.innerText = `${episode.name}`;
@@ -44,12 +44,16 @@ function makePageForEpisodes(episodeList) {
     episodePElement.innerHTML = `${episode.summary}`;
     episodeSummaryBox.append(episodePElement);
 
-    // Append child elements to parent elements
+    // append episode cards to container div with id root
     rootElem.append(episodeCard);
+
+    // append created elements to episodeCard
     episodeCard.append(episodeTitleBox, episodeSummaryBox, episodeImgBox);
     episodeCard.classList.add("div-border");
   }
 
+  // add a class on the root element to get some grid going
+  rootElem.classList.add("episode-container");
 }
 
 window.onload = setup;

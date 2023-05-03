@@ -5,3 +5,8 @@
 .div-border {
   border: solid 2px greenyellow;
 }
+
+.episode-container {
+  display: grid;
+  gap: 1.5rem;
+}
