@@ -1,12 +1,25 @@
 #root {
-  color: lightcoral;
+  color: black;
 }
 
-.div-border {
+/* How do I get each div to be the same height? */
+.episode-card {
   border: solid 2px greenyellow;
+  display: block;
+  height: 350px;
+}
+
+.episode-image {
+  width: 100%;
 }
 
 .episode-container {
   display: grid;
   gap: 1.5rem;
+  grid-template-columns: repeat(3, 1fr);
+  padding-block: 2rem;
+  width: min(95%, 70rem);
+  margin-inline: auto;
 }
+
+

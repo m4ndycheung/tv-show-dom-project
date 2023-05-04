@@ -1,4 +1,3 @@
-//You can edit ALL of the code here
 // What I need to do:
 // Start a for loop
 // Create episode container div to contain each episode info
@@ -17,28 +16,37 @@ function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
   rootElem.textContent = `Got ${episodeList.length} episode(s)`;
 
-  // add for loop in here to do stuff to each episode in the array object
+  // MAKE EPISODE CARDS
+  // loop to do stuff to each episode in the array object
   for (const episode of episodeList) {
     // 1. create some elements (divs, h3, img, p)
     // 2. assign content to those elements
-    // 3. assign some classes to elements
+    // 3. assign some classes to elements -- I might do this at the end (styling last)
+    // 4. remember to append child elements to parents
 
-    // div that contains episode data
+    // div that contains all episode data
     let episodeCard = document.createElement("div");
 
-    // title heading
+    // EPISODE TITLES
     let episodeTitleBox = document.createElement("div");
     let episodeTitleElement = document.createElement("h3");
-    episodeTitleElement.innerText = `${episode.name}`;
+    // episode codes
+    // a. change the numbers to strings
+    // b. use padStart() to zero-pad seasons and episodes
+    const paddedSeasonNumber = episode.season.toString().padStart(2, "0");
+    const paddedEpisodeNumber = episode.number.toString().padStart(2, "0");
+    const episodeName = episode.name;
+    episodeTitleElement.innerText = `${episodeName} - S${paddedSeasonNumber}E${paddedEpisodeNumber}`;
     episodeTitleBox.append(episodeTitleElement);
 
-    // img div
+    // IMAGES
     let episodeImgBox = document.createElement("div");
     let episodeImgElement = document.createElement("img");
     episodeImgElement.src = `${episode.image.medium}`;
+    episodeImgElement.alt = "Scene from Game of Thrones";
     episodeImgBox.append(episodeImgElement);
 
-    // summary text div
+    // SUMMARY TEXT
     let episodeSummaryBox = document.createElement("div");
     let episodePElement = document.createElement("p");
     episodePElement.innerHTML = `${episode.summary}`;
@@ -48,13 +56,15 @@ function makePageForEpisodes(episodeList) {
     rootElem.append(episodeCard);
 
     // append created elements to episodeCard
-    episodeCard.append(episodeTitleBox, episodeSummaryBox, episodeImgBox);
-    episodeCard.classList.add("div-border");
+    episodeCard.append(episodeImgBox, episodeTitleBox, episodeSummaryBox);
+
+    // ADD CLASSES
+    episodeCard.classList.add("episode-card");
+    episodeImgElement.classList.add("episode-image");
   }
 
-  // add a class on the root element to get some grid going
+  // add a class to the root element to get some grid going
   rootElem.classList.add("episode-container");
 }
 
 window.onload = setup;
-
