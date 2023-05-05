@@ -10,9 +10,19 @@ body {
 
 #root {
   color: black;
+  padding-block: 2rem;
+  width: min(95%, 70rem);
+  margin-inline: auto;
 }
 
 /* How do I get each div to be the same height? */
+.episode-container {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(3, 1fr);
+
+}
+
 .episode-card {
   border: solid 2px greenyellow;
   background:white;
@@ -20,15 +30,6 @@ body {
   border-radius: 20px;
   display: block;
   height: 400px;
-}
-
-.episode-container {
-  display: grid;
-  gap: 2rem;
-  grid-template-columns: repeat(3, 1fr);
-  padding-block: 2rem;
-  width: min(95%, 70rem);
-  margin-inline: auto;
 }
 
 .episode-image {

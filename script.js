@@ -1,12 +1,3 @@
-// What I need to do:
-// Start a for loop
-// Create episode container div to contain each episode info
-// Create title div
-// Create img div
-// Create episode text div
-// Append title, img, text divs to container div
-// Append container div to root
-
 function setup() {
   const allEpisodes = getAllEpisodes();
   makePageForEpisodes(allEpisodes);
@@ -20,6 +11,8 @@ function makePageForEpisodes(episodeList) {
 function createEpisodeCards(episodeList) {
   const rootElem = document.getElementById("root");
   // rootElem.textContent = `Got ${episodeList.length} episode(s)`;
+  let episodeCardContainer = document.createElement("div");
+
 
   // MAKE EPISODE CARDS
   // loop to do stuff to each episode in the array object
@@ -57,7 +50,7 @@ function createEpisodeCards(episodeList) {
     episodeSummaryBox.append(episodeTitleElement, episodePElement);
 
     // append episode cards to container div with id root
-    rootElem.append(episodeCard);
+    episodeCardContainer.append(episodeCard);
 
     // append created elements to episodeCard
     episodeCard.append(episodeImgBox, episodeTitleBox, episodeSummaryBox);
@@ -67,16 +60,16 @@ function createEpisodeCards(episodeList) {
     episodeImgElement.classList.add("episode-image");
     episodeSummaryBox.classList.add("episode-summary-section");
     episodePElement.classList.add("episode-summary-text");
-
-
   }
 
   // add a class to the root element to get some grid going
-  rootElem.classList.add("episode-container");
+  rootElem.append(episodeCardContainer);
+  episodeCardContainer.classList.add("episode-container");
 }
 
 function createFooter() {
-  // FOOTER
+  const rootElem = document.getElementById("root");
+
   let pageFooter = document.createElement("div");
   let footerLink = document.createElement("a");
   footerLink.href = "https://www.tvmaze.com";
@@ -85,8 +78,25 @@ function createFooter() {
   let footerPElement = document.createElement("p");
   footerPElement.innerHTML = `The episode data for this page was taken from `;
   footerPElement.appendChild(footerLink);
+
+  // append p to footer, append footer div to rootElem div
   pageFooter.append(footerPElement);
-  document.body.append(pageFooter);
+  rootElem.append(pageFooter);
+}
+
+function createSearchInput(episodeList) {
+  const rootElem = document.getElementById("root");
+  // create an input element
+  // create a search button
+  // input value converted to lowercase
+  // use an event listener to listen for keystrokes?
+  // each time input changes, match input value to episodes and summaries
+  // also the numebr of results is displayed (no. of episodes filtered)
+  // when there is nothing in the input box, all episodes are shown
+  // append search input stuff to rootelem
+
+  let searchInput = document.createElement("input");
+
 }
 
 window.onload = setup;
