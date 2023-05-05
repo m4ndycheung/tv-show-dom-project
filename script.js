@@ -14,6 +14,7 @@ function setup() {
 
 function makePageForEpisodes(episodeList) {
   createEpisodeCards(episodeList);
+  createFooter();
 }
 
 function createEpisodeCards(episodeList) {
@@ -72,6 +73,20 @@ function createEpisodeCards(episodeList) {
 
   // add a class to the root element to get some grid going
   rootElem.classList.add("episode-container");
+}
+
+function createFooter() {
+  // FOOTER
+  let pageFooter = document.createElement("div");
+  let footerLink = document.createElement("a");
+  footerLink.href = "https://www.tvmaze.com";
+  footerLink.innerHTML = "www.tvmaze.com";  
+  
+  let footerPElement = document.createElement("p");
+  footerPElement.innerHTML = `The episode data for this page was taken from `;
+  footerPElement.appendChild(footerLink);
+  pageFooter.append(footerPElement);
+  document.body.append(pageFooter);
 }
 
 window.onload = setup;
