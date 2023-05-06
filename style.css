@@ -9,6 +9,10 @@ body {
 }
 
 #root {
+  /* I applied a grid-gap between the header, episode-container, and footer */
+  /* might use padding later, for now stick with grid-gap */
+  display: grid;
+  grid-row-gap: 3rem;
   color: black;
   padding-block: 2rem;
   width: min(95%, 70rem);
@@ -44,7 +48,7 @@ body {
 
 .episode-summary-text {
   overflow: hidden;
-  display: -webkit-box;
+  display: -webkit-box; 
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 5; /* start showing ellipsis when xth line is reached */
   white-space: pre-wrap; /* let the text wrap preserving spaces */

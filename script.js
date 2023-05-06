@@ -4,8 +4,29 @@ function setup() {
 }
 
 function makePageForEpisodes(episodeList) {
+  createSearchInput(episodeList);
   createEpisodeCards(episodeList);
   createFooter();
+}
+
+function createSearchInput(episodeList) {
+  const rootElem = document.getElementById("root");
+  // create an input element
+  // create a search button
+  // input value converted to lowercase
+  // use an event listener to listen for keystrokes?
+  // each time input changes, match input value to episodes and summaries
+  // also the numebr of results is displayed (no. of episodes filtered)
+  // when there is nothing in the input box, all episodes are shown
+  // append search input stuff to rootelem
+
+  let pageHeader = document.createElement("div");
+  let searchInput = document.createElement("input");
+  searchInput.id = "search-input";
+  searchInput.type = "text";
+
+  pageHeader.append(searchInput);
+  rootElem.append(pageHeader);
 }
 
 function createEpisodeCards(episodeList) {
@@ -82,21 +103,6 @@ function createFooter() {
   // append p to footer, append footer div to rootElem div
   pageFooter.append(footerPElement);
   rootElem.append(pageFooter);
-}
-
-function createSearchInput(episodeList) {
-  const rootElem = document.getElementById("root");
-  // create an input element
-  // create a search button
-  // input value converted to lowercase
-  // use an event listener to listen for keystrokes?
-  // each time input changes, match input value to episodes and summaries
-  // also the numebr of results is displayed (no. of episodes filtered)
-  // when there is nothing in the input box, all episodes are shown
-  // append search input stuff to rootelem
-
-  let searchInput = document.createElement("input");
-
 }
 
 window.onload = setup;
