@@ -20,12 +20,19 @@ function createSearchInput(episodeList) {
   // when there is nothing in the input box, all episodes are shown
   // append search input stuff to rootelem
 
-  // search input
+  // create input field
   let pageHeader = document.createElement("div");
-  let searchInput = document.createElement("input");
-  searchInput.id = "search-input";
-  searchInput.type = "text";
-  searchInput.placeholder = "Search for episode name";
+  let searchInputElement = document.createElement("input");
+  searchInputElement.id = "search-field";
+  searchInputElement.type = "text";
+  searchInputElement.placeholder = "Search for episode name";
+
+  // document
+  // .getElementById("search-field")
+  // .addEventListener("input", searchEpisodes);
+
+
+  // let searchInput = document.getElementById("search-input");
   
   // append elements
   pageHeader.append(searchInput);
