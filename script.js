@@ -27,15 +27,37 @@ function createSearchInput(episodeList) {
   searchInputElement.type = "text";
   searchInputElement.placeholder = "Search for episode name";
 
-  // document
-  // .getElementById("search-field")
-  // .addEventListener("input", searchEpisodes);
+  searchInputElement.addEventListener("input", searchEpisodes);
 
-
-  // let searchInput = document.getElementById("search-input");
+  function test() {
+    alert("You've typed something");
+  }
   
+  function test2() {
+    let text = searchInputElement.value;
+    console.log(text);
+  }
+
+  function searchEpisodes() {
+    let inputText = searchInputElement.value.toLowerCase();
+    let allEpisodeCards = document.querySelectorAll(".episode-card");
+
+    for (const card of allEpisodeCards) {
+      if (card.classList.contains("hide-card")) {
+        card.classList.remove("hide-card");
+      }
+      // for each one we want to access the summary text
+      let summaryText = card.childNodes[1].childNodes[1].textContent.toLowerCase();
+
+      if (summaryText.includes(inputText) === false) {
+        card.classList.add("hide-card");
+      }
+    }
+
+  }
+
   // append elements
-  pageHeader.append(searchInput);
+  pageHeader.append(searchInputElement);
   rootElem.append(pageHeader);
 }
 
@@ -66,10 +88,10 @@ function createEpisodeCards(episodeList) {
     // EPISODE SUMMARY: Title and summary text
     let episodeSummaryBox = document.createElement("div");
     let episodePElement = document.createElement("p");
-    episodePElement.innerHTML = `${episode.summary}`;
+    let cleanedSummaryText = episode.summary.replaceAll("<p>","").replaceAll("</p>","").replaceAll("<br>","");
+    episodePElement.innerText = `${cleanedSummaryText}`;
 
     // EPISODE TITLES
-    let episodeTitleBox = document.createElement("div");
     let episodeTitleElement = document.createElement("h3");
     // episode codes
     // a. change the numbers to strings
@@ -84,7 +106,7 @@ function createEpisodeCards(episodeList) {
     episodeCardContainer.append(episodeCard);
 
     // append created elements to episodeCard
-    episodeCard.append(episodeImgBox, episodeTitleBox, episodeSummaryBox);
+    episodeCard.append(episodeImgBox, episodeSummaryBox);
 
     // ADD CLASSES
     episodeCard.classList.add("episode-card");
