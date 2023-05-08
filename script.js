@@ -29,31 +29,20 @@ function createSearchInput(episodeList) {
 
   searchInputElement.addEventListener("input", searchEpisodes);
 
-  function test() {
-    alert("You've typed something");
-  }
-  
-  function test2() {
-    let text = searchInputElement.value;
-    console.log(text);
-  }
-
   function searchEpisodes() {
     let inputText = searchInputElement.value.toLowerCase();
     let allEpisodeCards = document.querySelectorAll(".episode-card");
 
     for (const card of allEpisodeCards) {
-      if (card.classList.contains("hide-card")) {
-        card.classList.remove("hide-card");
-      }
-      // for each one we want to access the summary text
-      let summaryText = card.childNodes[1].childNodes[1].textContent.toLowerCase();
+      let summaryText = card.querySelector(".episode-summary-text").textContent.toLowerCase();
+      let titleText = card.querySelector(".episode-title").textContent.toLowerCase();
 
-      if (summaryText.includes(inputText) === false) {
+      if (titleText.includes(inputText)|| summaryText.includes(inputText)) {
+        card.classList.remove("hide-card");
+      } else {
         card.classList.add("hide-card");
       }
     }
-
   }
 
   // append elements
@@ -85,13 +74,14 @@ function createEpisodeCards(episodeList) {
     episodeImgElement.alt = "Scene from Game of Thrones";
     episodeImgBox.append(episodeImgElement);
 
-    // EPISODE SUMMARY: Title and summary text
+    // EPISODE SUMMARY SECTION: Title and summary text
+    // EPISODE SUMMARY TEXT
     let episodeSummaryBox = document.createElement("div");
     let episodePElement = document.createElement("p");
     let cleanedSummaryText = episode.summary.replaceAll("<p>","").replaceAll("</p>","").replaceAll("<br>","");
     episodePElement.innerText = `${cleanedSummaryText}`;
 
-    // EPISODE TITLES
+    // EPISODE TITLE TEXT
     let episodeTitleElement = document.createElement("h3");
     // episode codes
     // a. change the numbers to strings
@@ -111,8 +101,9 @@ function createEpisodeCards(episodeList) {
     // ADD CLASSES
     episodeCard.classList.add("episode-card");
     episodeImgElement.classList.add("episode-image");
-    episodeSummaryBox.classList.add("episode-summary-section");
+    episodeTitleElement.classList.add("episode-title");
     episodePElement.classList.add("episode-summary-text");
+    episodeSummaryBox.classList.add("episode-summary-section");
   }
 
   // add a class to the root element to get some grid going
