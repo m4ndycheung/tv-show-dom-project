@@ -61,18 +61,25 @@ function createSearchInput() {
 function createEpisodeCounter(episodeList) {
   // selecting the page header by id
   let pageHeader = document.getElementById("page-header");
-  let episodeCounter = episodeList.length;
-  // create the text displaying total episodes
-  let totalEpisodesText = document.createElement("span");
-  totalEpisodesText.id = "counter-text";
-  totalEpisodesText.innerText = `${episodeCounter} out of ${episodeList.length} episodes`;
-  pageHeader.append(totalEpisodesText);
-}
+  let totalEpisodes = episodeList.length;
 
-// I need a counter.
-// create the display text.
-// get total episodes
-// change the counter number display.
+  //create a span that holds 2 x spans
+  let textAll = document.createElement("span");
+
+  // create a span that holds the search result counter
+  let searchResultElement = document.createElement("span");
+  searchResultElement.id = "total-search-results"; // id to grab for counter
+  searchResultElement.innerHTML = episodeList.length;
+
+  // create a span that will hold all the text "56 out of 73 episodes"
+  let text2 = document.createElement("span");
+  text2.id = "total-episodes-text";
+  text2.innerText = " out of" + " " + totalEpisodes + " episodes";
+
+  // append span to span
+  textAll.append(searchResultElement, text2);
+  pageHeader.append(textAll);
+}
 
 function createEpisodeCards(episodeList) {
   const rootElem = document.getElementById("root");
