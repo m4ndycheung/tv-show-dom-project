@@ -6,7 +6,7 @@ function setup() {
 function makePageForEpisodes(episodeList) {
   createHeader();
   createSearchInput();
-  // createEpisodeCounter(episodeList);
+  createEpisodeCounter(episodeList);
   createEpisodeCards(episodeList);
   createFooter();
 }
@@ -28,8 +28,7 @@ function createSearchInput() {
   searchInputElement.type = "text";
   searchInputElement.placeholder = "Search for episode name";
 
-  // event listener
-  // each time input changes, function will happen
+  // event listener for search bar
   searchInputElement.addEventListener("input", searchEpisodes);
 
   // event listener callback function
@@ -59,14 +58,16 @@ function createSearchInput() {
   pageHeader.append(searchInputElement);
 }
 
-// function createEpisodeCounter(episodeList) {
-//   let pageHeader = document.createElement("div");
-//   // create counter text
-//   let counterText = document.createElement("span");
-//   counterText.id = "counter-text";
-//   counterText.innerText = `${episodeList.length}`;
-//   pageHeader.append(counterText);
-// }
+function createEpisodeCounter(episodeList) {
+  // selecting the page header by id
+  let pageHeader = document.getElementById("page-header");
+  let episodeCounter = episodeList.length;
+  // create the text displaying total episodes
+  let totalEpisodesText = document.createElement("span");
+  totalEpisodesText.id = "counter-text";
+  totalEpisodesText.innerText = `${episodeCounter} out of ${episodeList.length} episodes`;
+  pageHeader.append(totalEpisodesText);
+}
 
 // I need a counter.
 // create the display text.
