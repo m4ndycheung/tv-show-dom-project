@@ -4,16 +4,25 @@ function setup() {
 }
 
 function makePageForEpisodes(episodeList) {
-  createSearchInput(episodeList);
+  createHeader();
+  createSearchInput();
+  // createEpisodeCounter(episodeList);
   createEpisodeCards(episodeList);
   createFooter();
 }
 
+function createHeader() {
+  const rootElem = document.getElementById("root");
+  let pageHeaderElement = document.createElement("div");
+  pageHeaderElement.id = "page-header";
+  rootElem.append(pageHeaderElement);
+}
+
 function createSearchInput() {
   const rootElem = document.getElementById("root");
+  let pageHeader = document.getElementById("page-header");
 
   // create input field
-  let pageHeader = document.createElement("div");
   let searchInputElement = document.createElement("input");
   searchInputElement.id = "search-field";
   searchInputElement.type = "text";
@@ -25,8 +34,8 @@ function createSearchInput() {
 
   // event listener callback function
   function searchEpisodes() {
-    let inputText = searchInputElement.value.toLowerCase();
     let allEpisodeCards = document.querySelectorAll(".episode-card");
+    let inputText = searchInputElement.value.toLowerCase();
 
     for (const card of allEpisodeCards) {
       // select the title and summary text inside episode card divs
@@ -48,8 +57,21 @@ function createSearchInput() {
 
   // append searchInputElement to header div
   pageHeader.append(searchInputElement);
-  rootElem.append(pageHeader);
 }
+
+// function createEpisodeCounter(episodeList) {
+//   let pageHeader = document.createElement("div");
+//   // create counter text
+//   let counterText = document.createElement("span");
+//   counterText.id = "counter-text";
+//   counterText.innerText = `${episodeList.length}`;
+//   pageHeader.append(counterText);
+// }
+
+// I need a counter.
+// create the display text.
+// get total episodes
+// change the counter number display.
 
 function createEpisodeCards(episodeList) {
   const rootElem = document.getElementById("root");
