@@ -9,16 +9,8 @@ function makePageForEpisodes(episodeList) {
   createFooter();
 }
 
-function createSearchInput(episodeList) {
+function createSearchInput() {
   const rootElem = document.getElementById("root");
-  // create an input element
-  // create a search button
-  // input value converted to lowercase
-  // use an event listener to listen for keystrokes?
-  // each time input changes, match input value to episodes and summaries
-  // also the numebr of results is displayed (no. of episodes filtered)
-  // when there is nothing in the input box, all episodes are shown
-  // append search input stuff to rootelem
 
   // create input field
   let pageHeader = document.createElement("div");
@@ -27,17 +19,26 @@ function createSearchInput(episodeList) {
   searchInputElement.type = "text";
   searchInputElement.placeholder = "Search for episode name";
 
+  // event listener
+  // each time input changes, function will happen
   searchInputElement.addEventListener("input", searchEpisodes);
 
+  // event listener callback function
   function searchEpisodes() {
     let inputText = searchInputElement.value.toLowerCase();
     let allEpisodeCards = document.querySelectorAll(".episode-card");
 
     for (const card of allEpisodeCards) {
-      let summaryText = card.querySelector(".episode-summary-text").textContent.toLowerCase();
-      let titleText = card.querySelector(".episode-title").textContent.toLowerCase();
+      // select the title and summary text inside episode card divs
+      let titleText = card
+        .querySelector(".episode-title")
+        .textContent.toLowerCase();
+      let summaryText = card
+        .querySelector(".episode-summary-text")
+        .textContent.toLowerCase();
 
-      if (titleText.includes(inputText)|| summaryText.includes(inputText)) {
+      // use selected title and summary to compare with inputText
+      if (titleText.includes(inputText) || summaryText.includes(inputText)) {
         card.classList.remove("hide-card");
       } else {
         card.classList.add("hide-card");
@@ -45,7 +46,7 @@ function createSearchInput(episodeList) {
     }
   }
 
-  // append elements
+  // append searchInputElement to header div
   pageHeader.append(searchInputElement);
   rootElem.append(pageHeader);
 }
@@ -54,7 +55,6 @@ function createEpisodeCards(episodeList) {
   const rootElem = document.getElementById("root");
   // rootElem.textContent = `Got ${episodeList.length} episode(s)`;
   let episodeCardContainer = document.createElement("div");
-
 
   // MAKE EPISODE CARDS
   // loop to do stuff to each episode in the array object
@@ -78,7 +78,10 @@ function createEpisodeCards(episodeList) {
     // EPISODE SUMMARY TEXT
     let episodeSummaryBox = document.createElement("div");
     let episodePElement = document.createElement("p");
-    let cleanedSummaryText = episode.summary.replaceAll("<p>","").replaceAll("</p>","").replaceAll("<br>","");
+    let cleanedSummaryText = episode.summary
+      .replaceAll("<p>", "")
+      .replaceAll("</p>", "")
+      .replaceAll("<br>", "");
     episodePElement.innerText = `${cleanedSummaryText}`;
 
     // EPISODE TITLE TEXT
@@ -117,8 +120,8 @@ function createFooter() {
   let pageFooter = document.createElement("div");
   let footerLink = document.createElement("a");
   footerLink.href = "https://www.tvmaze.com";
-  footerLink.innerHTML = "www.tvmaze.com";  
-  
+  footerLink.innerHTML = "www.tvmaze.com";
+
   let footerPElement = document.createElement("p");
   footerPElement.innerHTML = `The episode data for this page was taken from `;
   footerPElement.appendChild(footerLink);
