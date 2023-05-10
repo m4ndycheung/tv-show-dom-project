@@ -29,10 +29,10 @@ function createSearchInput() {
   searchInputElement.placeholder = "Search for episode name";
 
   // event listener for search bar
-  searchInputElement.addEventListener("input", updateEpisodes);
+  searchInputElement.addEventListener("input", updateEpisodeResultsAndCounter);
 
   // event listener callback function
-  function updateEpisodes() {
+  function updateEpisodeResultsAndCounter() {
     let allEpisodeCards = document.querySelectorAll(".episode-card");
     let inputText = searchInputElement.value.toLowerCase();
     let episodeCount = 0;
@@ -54,8 +54,9 @@ function createSearchInput() {
         card.classList.add("hide-card");
       }
     }
-    console.log(episodeCount);
+    // Select span holding episode count
     let episodeCounterSpan = document.getElementById("total-search-results");
+    // reassign to episodeCount
     episodeCounterSpan.innerHTML = episodeCount;
   }
 
@@ -69,7 +70,7 @@ function createEpisodeCounter(episodeList) {
   let totalEpisodes = episodeList.length;
 
   //create a span that holds 2 x spans
-  let textAll = document.createElement("span");
+  let episodeCountText = document.createElement("span");
 
   // create a span that holds the search result counter
   let searchResultElement = document.createElement("span");
@@ -77,13 +78,13 @@ function createEpisodeCounter(episodeList) {
   searchResultElement.innerHTML = episodeList.length;
 
   // create a span that will hold all the text "56 out of 73 episodes"
-  let text2 = document.createElement("span");
-  text2.id = "total-episodes-text";
-  text2.innerText = " out of" + " " + totalEpisodes + " episodes";
+  let totalEpisodesText = document.createElement("span");
+  totalEpisodesText.id = "total-episodes-text";
+  totalEpisodesText.innerText = " out of" + " " + totalEpisodes + " episodes";
 
   // append span to span
-  textAll.append(searchResultElement, text2);
-  pageHeader.append(textAll);
+  episodeCountText.append(searchResultElement, totalEpisodesText);
+  pageHeader.append(episodeCountText);
 }
 
 function createEpisodeCards(episodeList) {
