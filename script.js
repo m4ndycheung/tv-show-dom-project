@@ -29,12 +29,13 @@ function createSearchInput() {
   searchInputElement.placeholder = "Search for episode name";
 
   // event listener for search bar
-  searchInputElement.addEventListener("input", searchEpisodes);
+  searchInputElement.addEventListener("input", updateEpisodes);
 
   // event listener callback function
-  function searchEpisodes() {
+  function updateEpisodes() {
     let allEpisodeCards = document.querySelectorAll(".episode-card");
     let inputText = searchInputElement.value.toLowerCase();
+    let episodeCount = 0;
 
     for (const card of allEpisodeCards) {
       // select the title and summary text inside episode card divs
@@ -48,10 +49,14 @@ function createSearchInput() {
       // use selected title and summary to compare with inputText
       if (titleText.includes(inputText) || summaryText.includes(inputText)) {
         card.classList.remove("hide-card");
+        episodeCount++;
       } else {
         card.classList.add("hide-card");
       }
     }
+    console.log(episodeCount);
+    let episodeCounterSpan = document.getElementById("total-search-results");
+    episodeCounterSpan.innerHTML = episodeCount;
   }
 
   // append searchInputElement to header div
