@@ -34,11 +34,13 @@ function createDropDownMenu(episodeList) {
   for (const episode of episodeList) {
     let dropDownOption = document.createElement("option");
     dropDownOption.value = episode.name;
-    dropDownOption.innerText = episode.name;
-    // const paddedSeasonNumber = episode.season.toString().padStart(2, "0");
-    // const paddedEpisodeNumber = episode.number.toString().padStart(2, "0");
-    // const episodeName = episode.name;
-    // dropDownListOption.innerText = `${episodeName} - S${paddedSeasonNumber}E${paddedEpisodeNumber}`;
+
+    // more padstart stuff -- let's put this in a function later
+    const paddedSeasonNumber = episode.season.toString().padStart(2, "0");
+    const paddedEpisodeNumber = episode.number.toString().padStart(2, "0");
+    const episodeName = episode.name;
+
+    dropDownOption.innerText = `S${paddedSeasonNumber}E${paddedEpisodeNumber} - ${episodeName}`;
     dropDownMenuElement.append(dropDownOption);
   }
 
