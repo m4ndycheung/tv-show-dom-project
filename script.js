@@ -5,7 +5,8 @@ function setup() {
 
 function makePageForEpisodes(episodeList) {
   createHeader();
-  createSearchInput();
+  createDropDownMenu(episodeList);
+  createSearchbar();
   createEpisodeCounter(episodeList);
   createEpisodeCards(episodeList);
   createFooter();
@@ -18,7 +19,34 @@ function createHeader() {
   rootElem.append(pageHeaderElement);
 }
 
-function createSearchInput() {
+function createDropDownMenu(episodeList) {
+  // make a dropdown menu
+  // for loop on episode list to populate options in dropdown
+  // add padstart bits to the title
+  // when clicked, takes user to that episode page.
+  // I need to incorporate urls....
+
+  let dropDownMenuElement = document.createElement("select");
+  // let option = document.createElement("option");
+  // option.value = "chocolate";
+  // option.innerText = "Chocolate";
+
+  for (const episode of episodeList) {
+    let dropDownOption = document.createElement("option");
+    dropDownOption.value = episode.name;
+    dropDownOption.innerText = episode.name;
+    // const paddedSeasonNumber = episode.season.toString().padStart(2, "0");
+    // const paddedEpisodeNumber = episode.number.toString().padStart(2, "0");
+    // const episodeName = episode.name;
+    // dropDownListOption.innerText = `${episodeName} - S${paddedSeasonNumber}E${paddedEpisodeNumber}`;
+    dropDownMenuElement.append(dropDownOption);
+  }
+
+  let header = document.getElementById("page-header");
+  header.append(dropDownMenuElement);
+}
+
+function createSearchbar() {
   const rootElem = document.getElementById("root");
   let pageHeader = document.getElementById("page-header");
 
