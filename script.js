@@ -6,6 +6,7 @@ function setup() {
 function makePageForEpisodes(episodeList) {
   createHeader();
   createDropDownMenu(episodeList);
+  goToEpisodePage(episodeList);
   createSearchbar();
   createEpisodeCounter(episodeList);
   createEpisodeCards(episodeList);
@@ -27,9 +28,7 @@ function createDropDownMenu(episodeList) {
   // I need to incorporate urls....
 
   let dropDownMenuElement = document.createElement("select");
-  // let option = document.createElement("option");
-  // option.value = "chocolate";
-  // option.innerText = "Chocolate";
+  dropDownMenuElement.id = "episode-select";
 
   for (const episode of episodeList) {
     let dropDownOption = document.createElement("option");
@@ -46,6 +45,18 @@ function createDropDownMenu(episodeList) {
 
   let header = document.getElementById("page-header");
   header.append(dropDownMenuElement);
+}
+
+function goToEpisodePage(episodeList) {
+  let dropDownMenu = document.getElementById("episode-select");
+
+  dropDownMenu.addEventListener("change", getOption);
+
+  function getOption() {
+    let dropDownChoice =
+      dropDownMenu.options[dropDownMenu.selectedIndex].innerText;
+    console.log(dropDownChoice);
+  }
 }
 
 function createSearchbar() {
