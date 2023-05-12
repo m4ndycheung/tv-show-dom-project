@@ -46,16 +46,20 @@ function createDropDownMenu(episodeList) {
   let header = document.getElementById("page-header");
   header.append(dropDownMenuElement);
 }
-
+// FUTURE SELF -- ADD A DEFAULT OPTION INSTEAD OF STARTING AT WINTER IS COMINGGG
 function goToEpisodePage(episodeList) {
   let dropDownMenu = document.getElementById("episode-select");
+  let dropDownChoice = dropDownMenu.value;
 
-  dropDownMenu.addEventListener("change", getOption);
+  dropDownMenu.addEventListener("change", openEpisodeURL);
 
-  function getOption() {
-    let dropDownChoice =
-      dropDownMenu.options[dropDownMenu.selectedIndex].innerText;
-    console.log(dropDownChoice);
+  function openEpisodeURL() {
+    for (const episode of episodeList) {
+      dropDownChoice = dropDownMenu.value;
+      if (dropDownChoice === episode.name) {
+        open(episode.url);
+      }
+    }
   }
 }
 
