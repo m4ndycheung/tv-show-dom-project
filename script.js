@@ -6,7 +6,7 @@ function setup() {
 function makePageForEpisodes(episodeList) {
   createHeader();
   createDropDownMenu(episodeList);
-  goToEpisodePage(episodeList);
+  useDropdownToJumpToEpisode(episodeList);
   createSearchbar();
   createEpisodeCounter(episodeList);
   createEpisodeCards(episodeList);
@@ -20,6 +20,8 @@ function createHeader() {
   rootElem.append(pageHeaderElement);
 }
 
+////////////////////////////////////////////////////////////////////////////////
+
 function createDropDownMenu(episodeList) {
   // make a dropdown menu
   // for loop on episode list to populate options in dropdown
@@ -29,10 +31,14 @@ function createDropDownMenu(episodeList) {
 
   let dropDownMenuElement = document.createElement("select");
   dropDownMenuElement.id = "episode-select";
+  let defaultOption = document.createElement("option");
+  defaultOption.innerText = "Select Episode";
+  dropDownMenuElement.append(defaultOption);
 
   for (const episode of episodeList) {
     let dropDownOption = document.createElement("option");
-    dropDownOption.value = episode.name;
+    //////////// Assign dropdown option values
+    dropDownOption.value = "EP" + episode.id;
 
     // more padstart stuff -- let's put this in a function later
     const paddedSeasonNumber = episode.season.toString().padStart(2, "0");
@@ -46,18 +52,26 @@ function createDropDownMenu(episodeList) {
   let header = document.getElementById("page-header");
   header.append(dropDownMenuElement);
 }
+
 // FUTURE SELF -- ADD A DEFAULT OPTION INSTEAD OF STARTING AT WINTER IS COMINGGG
-function goToEpisodePage(episodeList) {
+function useDropdownToJumpToEpisode(episodeList) {
   let dropDownMenu = document.getElementById("episode-select");
   let dropDownChoice = dropDownMenu.value;
 
-  dropDownMenu.addEventListener("change", openEpisodeURL);
+  dropDownMenu.addEventListener("change", jumpToEpisode);
 
-  function openEpisodeURL() {
+  function jumpToEpisode() {
+    // FUTURE SELF -- check if need for loop here
     for (const episode of episodeList) {
       dropDownChoice = dropDownMenu.value;
-      if (dropDownChoice === episode.name) {
-        open(episode.url);
+      let selectedEpisodeCard = document.getElementById("EP" + episode.id);
+
+      if (dropDownChoice === selectedEpisodeCard.id) {
+        // assign each card container a unique id
+        // get the select choice
+        // find the corresponding card
+        // then scroll episode card into view
+        selectedEpisodeCard.scrollIntoView({ behavior: "smooth" });
       }
     }
   }
@@ -134,7 +148,6 @@ function createEpisodeCounter(episodeList) {
 
 function createEpisodeCards(episodeList) {
   const rootElem = document.getElementById("root");
-  // rootElem.textContent = `Got ${episodeList.length} episode(s)`;
   let episodeCardContainer = document.createElement("div");
 
   // MAKE EPISODE CARDS
@@ -147,6 +160,8 @@ function createEpisodeCards(episodeList) {
 
     // div that contains all episode data
     let episodeCard = document.createElement("div");
+    ////////////////// Assign episodeCards an ID
+    episodeCard.id = "EP" + episode.id;
 
     // IMAGES
     let episodeImgBox = document.createElement("div");
