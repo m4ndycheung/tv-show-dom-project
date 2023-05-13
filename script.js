@@ -1,6 +1,20 @@
 function setup() {
-  const allEpisodes = getAllEpisodes();
-  makePageForEpisodes(allEpisodes);
+  const allEpisodes = getAllEpisodesFromAPI().then(makePageForEpisodes);
+}
+
+let episodesStore;
+
+async function getAllEpisodesFromAPI() {
+  // if statement if episode store false then do following code
+  // change url
+  // return episodeStore
+
+  // if episode store empty, it's undefined so it is falsy
+  if (!episodesStore) {
+    const response = await fetch("https://api.tvmaze.com/shows/82/episodes");
+    episodesStore = await response.json();
+  }
+  return episodesStore;
 }
 
 function makePageForEpisodes(episodeList) {
@@ -50,7 +64,6 @@ function createDropDownMenu(episodeList) {
   header.append(dropDownMenuElement);
 }
 
-// FUTURE SELF -- ADD A DEFAULT OPTION INSTEAD OF STARTING AT WINTER IS COMINGGG
 function useDropdownToJumpToEpisode(episodeList) {
   let dropDownMenu = document.getElementById("episode-select");
   let dropDownChoice = dropDownMenu.value;
@@ -58,7 +71,6 @@ function useDropdownToJumpToEpisode(episodeList) {
   dropDownMenu.addEventListener("change", jumpToEpisode);
 
   function jumpToEpisode() {
-    // FUTURE SELF -- check if need for loop here
     for (const episode of episodeList) {
       // get the select choice
       dropDownChoice = dropDownMenu.value;
@@ -125,7 +137,7 @@ function createEpisodeCounter(episodeList) {
   let pageHeader = document.getElementById("page-header");
   let totalEpisodes = episodeList.length;
 
-  //create a span that holds 2 x spans
+  //create a span
   let episodeCountText = document.createElement("span");
 
   // create a span that holds the search result counter
