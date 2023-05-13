@@ -25,9 +25,6 @@ function createHeader() {
 function createDropDownMenu(episodeList) {
   // make a dropdown menu
   // for loop on episode list to populate options in dropdown
-  // add padstart bits to the title
-  // when clicked, takes user to that episode page.
-  // I need to incorporate urls....
 
   let dropDownMenuElement = document.createElement("select");
   dropDownMenuElement.id = "episode-select";
@@ -63,12 +60,12 @@ function useDropdownToJumpToEpisode(episodeList) {
   function jumpToEpisode() {
     // FUTURE SELF -- check if need for loop here
     for (const episode of episodeList) {
+      // get the select choice
       dropDownChoice = dropDownMenu.value;
       let selectedEpisodeCard = document.getElementById("EP" + episode.id);
 
       if (dropDownChoice === selectedEpisodeCard.id) {
         // assign each card container a unique id
-        // get the select choice
         // find the corresponding card
         // then scroll episode card into view
         selectedEpisodeCard.scrollIntoView({ behavior: "smooth" });
