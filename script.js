@@ -1,8 +1,12 @@
 function setup() {
+  // getALlEpisodesFromAPI() is an async function
+  // so it will produce a Promise
+  // Once it has fetched the data, then it will pass that data to makePageForEpisodes
   const allEpisodes = getAllEpisodesFromAPI().then(makePageForEpisodes);
 }
 
-let episodesStore;
+// declared in global scope for easy access!
+let episodesStorage;
 
 async function getAllEpisodesFromAPI() {
   // if statement if episode store false then do following code
@@ -10,11 +14,11 @@ async function getAllEpisodesFromAPI() {
   // return episodeStore
 
   // if episode store empty, it's undefined so it is falsy
-  if (!episodesStore) {
+  if (!episodesStorage) {
     const response = await fetch("https://api.tvmaze.com/shows/82/episodes");
-    episodesStore = await response.json();
+    episodesStorage = await response.json();
   }
-  return episodesStore;
+  return episodesStorage;
 }
 
 function makePageForEpisodes(episodeList) {
