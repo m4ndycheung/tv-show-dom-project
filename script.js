@@ -2,27 +2,24 @@ function setup() {
   // getALlEpisodesFromAPI() is an async function
   // so it will produce a Promise
   // Once it has fetched the data, then it will pass that data to makePageForEpisodes
-  const allEpisodes = getAllEpisodesFromAPI().then(makePageForEpisodes);
+  let initialURL = "https://api.tvmaze.com/shows/82/episodes";
+
+  const allEpisodes =
+    getAllEpisodesFromAPI(initialURL).then(makePageForEpisodes);
 }
 
-// declared in global scope for easy access!
-let episodesStorage;
+async function getAllEpisodesFromAPI(url) {
+  let episodesStorage;
 
-async function getAllEpisodesFromAPI() {
-  // if statement if episode store false then do following code
-  // change url
-  // return episodeStore
-
-  // if episode store empty, it's undefined so it is falsy
-  if (!episodesStorage) {
-    const response = await fetch("https://api.tvmaze.com/shows/82/episodes");
-    episodesStorage = await response.json();
-  }
+  const response = await fetch(url);
+  episodesStorage = response.json();
   return episodesStorage;
 }
 
 function makePageForEpisodes(episodeList) {
   createHeader();
+  createShowsDropDownMenu();
+  loadNewShow();
   createDropDownMenu(episodeList);
   useDropdownToJumpToEpisode(episodeList);
   createSearchbar();
@@ -38,7 +35,43 @@ function createHeader() {
   rootElem.append(pageHeaderElement);
 }
 
-////////////////////////////////////////////////////////////////////////////////
+function createShowsDropDownMenu() {
+  let dropDownMenuElement = document.createElement("select");
+  dropDownMenuElement.id = "show-select";
+  let defaultOption = document.createElement("option");
+  defaultOption.innerText = "Select Show";
+  dropDownMenuElement.append(defaultOption);
+
+  let allShows = getAllShows();
+
+  for (const show of allShows) {
+    let dropDownOption = document.createElement("option");
+    //////////// Assign dropdown option values
+    dropDownOption.value = show.id;
+
+    dropDownOption.innerText = `${show.name}`;
+    dropDownMenuElement.append(dropDownOption);
+  }
+
+  let header = document.getElementById("page-header");
+  header.append(dropDownMenuElement);
+}
+
+function loadNewShow() {
+  let showDropDownMenu = document.getElementById("show-select");
+  let showDropDownChoice = showDropDownMenu.value;
+
+  showDropDownMenu.addEventListener("change", populateNewEpisodes);
+
+  function populateNewEpisodes() {
+    showDropDownChoice = showDropDownMenu.value;
+    let showURL = `https://api.tvmaze.com/shows/${showDropDownChoice}/episodes`;
+
+    // before making cards for new show, clear html
+    document.querySelector("#root").innerHTML = "";
+    getAllEpisodesFromAPI(showURL).then(makePageForEpisodes);
+  }
+}
 
 function createDropDownMenu(episodeList) {
   // make a dropdown menu
@@ -69,18 +102,18 @@ function createDropDownMenu(episodeList) {
 }
 
 function useDropdownToJumpToEpisode(episodeList) {
-  let dropDownMenu = document.getElementById("episode-select");
-  let dropDownChoice = dropDownMenu.value;
+  let episodeDropDownMenu = document.getElementById("episode-select");
+  let episodeDropDownChoice = episodeDropDownMenu.value;
 
-  dropDownMenu.addEventListener("change", jumpToEpisode);
+  episodeDropDownMenu.addEventListener("change", jumpToEpisode);
 
   function jumpToEpisode() {
     for (const episode of episodeList) {
       // get the select choice
-      dropDownChoice = dropDownMenu.value;
+      episodeDropDownChoice = episodeDropDownMenu.value;
       let selectedEpisodeCard = document.getElementById("EP" + episode.id);
 
-      if (dropDownChoice === selectedEpisodeCard.id) {
+      if (episodeDropDownChoice === selectedEpisodeCard.id) {
         // assign each card container a unique id
         // find the corresponding card
         // then scroll episode card into view
@@ -187,11 +220,7 @@ function createEpisodeCards(episodeList) {
     // EPISODE SUMMARY TEXT
     let episodeSummaryBox = document.createElement("div");
     let episodePElement = document.createElement("p");
-    let cleanedSummaryText = episode.summary
-      .replaceAll("<p>", "")
-      .replaceAll("</p>", "")
-      .replaceAll("<br>", "");
-    episodePElement.innerText = `${cleanedSummaryText}`;
+    episodePElement.innerHTML = `${episode.summary}`;
 
     // EPISODE TITLE TEXT
     let episodeTitleElement = document.createElement("h3");
