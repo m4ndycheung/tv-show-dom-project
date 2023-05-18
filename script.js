@@ -44,16 +44,13 @@ function createShowsDropDownMenu() {
 
   let allShows = getAllShows();
 
-  // good example of where to use a ternirary
+  // according to a codebar mentor: good example of where to use a ternirary
   allShows.sort(function (a, b) {
-    // if (a.name < b.name) {
-    //   return -1;
-    // }
-    // else {
-    //   return 1;
-    // }
-
-    return a.name < b.name ? 1 : -1;
+    if (a.name < b.name) {
+      return -1;
+    } else {
+      return 1;
+    }
   });
 
   for (const show of allShows) {
