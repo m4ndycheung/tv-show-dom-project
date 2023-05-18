@@ -1,3 +1,63 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #f0f4fb;
+  font-family: "PT-Sans", sans-serif;
+  line-height: 1;
+}
+
 #root {
-  color: red;
+  /* I applied a grid-gap between the header, episode-container, and footer */
+  display: grid;
+  grid-row-gap: 3rem;
+  color: black;
+  padding-block: 2rem;
+  width: min(95%, 70rem);
+  margin-inline: auto;
+}
+
+/* How do I get each div to be the same height? */
+.episode-container {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.episode-card {
+  border: solid 2px greenyellow;
+  background: white;
+  color: #373d3f;
+  border-radius: 20px;
+  display: block;
+  height: 400px;
+}
+
+.episode-image {
+  width: 100%;
+  height: auto;
+  border-radius: 20px 20px 0 0;
+}
+
+.episode-summary-section {
+  padding: 0 1.5rem;
+}
+
+.episode-title {
+  font-size: 16px;
+}
+
+.episode-summary-text {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 6; /* start showing ellipsis when xth line is reached */
+  white-space: pre-wrap; /* let the text wrap preserving spaces */
+  letter-spacing: 0.03rem;
+  line-height: 1.3rem;
+}
+
+.hide-card {
+  display: none;
 }
