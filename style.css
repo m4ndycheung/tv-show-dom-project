@@ -61,3 +61,23 @@ body {
 .hide-card {
   display: none;
 }
+
+/* SHOW CARD CLASSES */
+
+.show-container {
+  display: grid;
+  gap: 2rem;
+}
+
+.show-card,
+.show-image,
+.show-title,
+.show-summary-text,
+.show-aside {
+  border: solid 2px lime;
+}
+
+.show-information-section {
+  border: solid 2px hotpink;
+  display: flex;
+}

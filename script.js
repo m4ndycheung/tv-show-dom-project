@@ -73,24 +73,38 @@ function displayShows() {
     let showPElement = document.createElement("p");
     showPElement.innerHTML = `${show.summary}`;
 
+    // THE GENRE BIT
+    let showInfoAsideBox = document.createElement("div");
+    let ratingText = document.createElement("p");
+    ratingText.innerText = "blah";
+    let genreText = document.createElement("p");
+    genreText.innerText = "blah";
+    let statusText = document.createElement("p");
+    statusText.innerText = "blah";
+    let runtimeText = document.createElement("p");
+    runtimeText.innerText = "blah";
+
+    showInfoAsideBox.append(ratingText, genreText, statusText, runtimeText);
+
     // append episode cards to container div
     showCardContainer.append(showCard);
 
     // append created elements to episodeCard
     showCard.append(showInfoBox);
-    showInfoBox.append(showImgElement, showPElement);
+    showInfoBox.append(showImgElement, showPElement, showInfoAsideBox);
 
     // // ADD CLASSES
-    // episodeCard.classList.add("episode-card");
-    // episodeImgElement.classList.add("episode-image");
-    // episodeTitleElement.classList.add("episode-title");
-    // episodePElement.classList.add("episode-summary-text");
-    // episodeSummaryBox.classList.add("episode-summary-section");
+    showCard.classList.add("show-card");
+    showImgElement.classList.add("show-image");
+    showTitleElement.classList.add("show-title");
+    showPElement.classList.add("show-summary-text");
+    showInfoBox.classList.add("show-information-section");
+    showInfoAsideBox.classList.add("show-aside");
   }
 
   // add a class to the root element to get some grid going
   rootElem.append(showCardContainer);
-  // showCardContainer.classList.add("episode-container");
+  showCardContainer.classList.add("show-container");
 }
 
 function createHeader() {
