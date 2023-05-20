@@ -68,19 +68,17 @@ function displayShows() {
     }
 
     showImgElement.alt = `Poster image for ${show.name}`;
-    showInfoBox.append(showImgElement);
 
-    // // EPISODE SUMMARY SECTION: Title and summary text
     // // EPISODE SUMMARY TEXT
-    // let episodeSummaryBox = document.createElement("div");
-    // let episodePElement = document.createElement("p");
-    // episodePElement.innerHTML = `${episode.summary}`;
+    let showPElement = document.createElement("p");
+    showPElement.innerHTML = `${show.summary}`;
 
     // append episode cards to container div
     showCardContainer.append(showCard);
 
     // append created elements to episodeCard
     showCard.append(showInfoBox);
+    showInfoBox.append(showImgElement, showPElement);
 
     // // ADD CLASSES
     // episodeCard.classList.add("episode-card");
