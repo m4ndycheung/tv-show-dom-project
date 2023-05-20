@@ -1,7 +1,7 @@
 function setup() {
   // getALlEpisodesFromAPI() is an async function
   // so it will produce a Promise
-  // Once it has fetched the data, then it will pass that data to makePageForEpisodes
+  // Once it has fetched the data, then it will pass episode data to makePageForEpisodes
   let initialURL = "https://api.tvmaze.com/shows/82/episodes";
 
   const allEpisodes =
@@ -23,9 +23,76 @@ function makePageForEpisodes(episodeList) {
   createDropDownMenu(episodeList);
   useDropdownToJumpToEpisode(episodeList);
   createSearchbar();
+
+  displayShows();
   createEpisodeCounter(episodeList);
-  createEpisodeCards(episodeList);
+  // createEpisodeCards(episodeList);
   createFooter();
+}
+
+// need to display all shows on page, not game of thrones
+function displayShows() {
+  let allShows = getAllShows();
+
+  const rootElem = document.getElementById("root");
+
+  // I think this is going to hold all the show cards...
+  let showCardContainer = document.createElement("div");
+
+  // MAKE SHOW CARDS
+  // loop to do stuff to each episode in the array object
+  for (const show of allShows) {
+    // div that contains Title, image, p, genre details
+    let showCard = document.createElement("div");
+    // Assign showCards an ID
+    // showCard.id = "EP" + show.id;
+
+    // EPISODE TITLE TEXT
+    let showTitleElement = document.createElement("h3");
+
+    const showName = show.name;
+    showTitleElement.innerText = `${showName}`;
+    showCard.append(showTitleElement);
+
+    // SHOW INFORMATION CONTAINER
+    let showInfoBox = document.createElement("div");
+
+    // IMAGES
+    let showImgElement = document.createElement("img");
+
+    // if statement to deal with null images
+    if (show.image === null) {
+      showImgElement.src = "";
+    } else {
+      showImgElement.src = `${show.image.medium}`;
+    }
+
+    showImgElement.alt = `Poster image for ${show.name}`;
+    showInfoBox.append(showImgElement);
+
+    // // EPISODE SUMMARY SECTION: Title and summary text
+    // // EPISODE SUMMARY TEXT
+    // let episodeSummaryBox = document.createElement("div");
+    // let episodePElement = document.createElement("p");
+    // episodePElement.innerHTML = `${episode.summary}`;
+
+    // append episode cards to container div
+    showCardContainer.append(showCard);
+
+    // append created elements to episodeCard
+    showCard.append(showInfoBox);
+
+    // // ADD CLASSES
+    // episodeCard.classList.add("episode-card");
+    // episodeImgElement.classList.add("episode-image");
+    // episodeTitleElement.classList.add("episode-title");
+    // episodePElement.classList.add("episode-summary-text");
+    // episodeSummaryBox.classList.add("episode-summary-section");
+  }
+
+  // add a class to the root element to get some grid going
+  rootElem.append(showCardContainer);
+  // showCardContainer.classList.add("episode-container");
 }
 
 function createHeader() {
