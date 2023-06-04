@@ -85,8 +85,10 @@ function createShowCards() {
     // need to make the genre and time box too...*****
     let extraInfoBox = document.createElement("div");
     let showRating = document.createElement("p");
-    showRating.innerText = `${show.rating.average}`;
-    extraInfoBox.append(showRating);
+    showRating.innerText = `Rating: ${show.rating.average}`;
+    let showGenre = document.createElement("p");
+    showGenre.innerText = `Genre(s): ${show.genres}`;
+    extraInfoBox.append(showRating, showGenre);
 
     // append show image, p, details to showDetailsBox
     showDetailsBox.append(showImgBox, showPElement, extraInfoBox);
