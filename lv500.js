@@ -114,7 +114,6 @@ function createShowCards() {
 
   // add a class to the root element to get some grid going
   rootElem.append(showCardContainer);
-  showCardContainer.classList.add("episode-container");
 }
 
 function createHeader() {
