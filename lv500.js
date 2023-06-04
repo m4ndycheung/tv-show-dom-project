@@ -2,10 +2,12 @@ function setup() {
   // getALlEpisodesFromAPI() is an async function
   // so it will produce a Promise
   // Once it has fetched the data, then it will pass that data to makePageForEpisodes
-  let initialURL = "https://api.tvmaze.com/shows/82/episodes";
+  //   let initialURL = "https://api.tvmaze.com/shows/82/episodes";
 
-  const allEpisodes =
-    getAllEpisodesFromAPI(initialURL).then(makePageForEpisodes);
+  //   const allEpisodes =
+  //     getAllEpisodesFromAPI(initialURL).then(makePageForEpisodes);
+
+  makePageForShows();
 }
 
 async function getAllEpisodesFromAPI(url) {
@@ -16,32 +18,102 @@ async function getAllEpisodesFromAPI(url) {
   return episodesStorage;
 }
 
-function loadNewShow() {
-  let showDropDownMenu = document.getElementById("show-select");
-  let showDropDownChoice = showDropDownMenu.value;
+// Make page for Shows
+// Need createShowCards using the shows.js?
+// use shows drop down menu
+// use the search bar code
 
-  showDropDownMenu.addEventListener("change", populateNewEpisodes);
+// function makePageForEpisodes(episodeList) {
+//   createHeader();
+//   createShowsDropDownMenu();
+//   loadNewShow();
+//   createDropDownMenu(episodeList);
+//   useDropdownToJumpToEpisode(episodeList);
+//   createSearchbar();
+//   createEpisodeCounter(episodeList);
+//   createEpisodeCards(episodeList);
+//   createFooter();
+// }
 
-  function populateNewEpisodes() {
-    showDropDownChoice = showDropDownMenu.value;
-    let showURL = `https://api.tvmaze.com/shows/${showDropDownChoice}/episodes`;
-
-    // before making cards for new show, clear html
-    document.querySelector("#root").innerHTML = "";
-    getAllEpisodesFromAPI(showURL).then(makePageForEpisodes);
-  }
+function makePageForShows() {
+  createShowCards();
 }
 
-function makePageForEpisodes(episodeList) {
-  createHeader();
-  createShowsDropDownMenu();
-  loadNewShow();
-  createDropDownMenu(episodeList);
-  useDropdownToJumpToEpisode(episodeList);
-  createSearchbar();
-  createEpisodeCounter(episodeList);
-  createEpisodeCards(episodeList);
-  createFooter();
+// *********************************
+function createShowCards() {
+  let showsList = getAllShows();
+  const rootElem = document.getElementById("root");
+  // this div holds all the show cards
+  let showCardContainer = document.createElement("div");
+
+  // MAKE EPISODE CARDS
+  // loop to do stuff to each episode in the array object
+  for (const show of showsList) {
+    // 1. create some elements (divs, h3, img, p)
+    // 2. assign content to those elements
+    // 3. assign some classes to elements -- I might do this at the end (styling last)
+    // 4. remember to append child elements to parents
+
+    // div that contains all episode data
+    let showCard = document.createElement("div");
+    ////////////////// Assign episodeCards an ID
+    showCard.id = "S" + show.id;
+
+    // EPISODE SUMMARY TEXT
+    let showDetailsBox = document.createElement("div");
+    let showPElement = document.createElement("p");
+    showPElement.innerHTML = `${show.summary}`;
+
+    // HEADER
+    let showHeaderElement = document.createElement("h3");
+    const showName = show.name;
+    showHeaderElement.innerText = `${showName}`;
+
+    // IMAGES
+    let showImgBox = document.createElement("div");
+    let showImgElement = document.createElement("img");
+
+    // one of the shows has a null value for show.image.medium
+    if (show.image === null) {
+      showImgElement.src = ``;
+    } else {
+      showImgElement.src = `${show.image.medium}`;
+    }
+    showImgElement.alt = "alt text";
+    showImgBox.append(showImgElement);
+
+    // need to make the genre and time box too...*****
+    let extraInfoBox = document.createElement("div");
+    let showRating = document.createElement("p");
+    showRating.innerText = `Rating: ${show.rating.average}`;
+    let showGenre = document.createElement("p");
+    showGenre.innerText = `Genre(s): ${show.genres}`;
+    let showStatus = document.createElement("p");
+    showStatus.innerText = `Status: ${show.status}`;
+    let showRuntime = document.createElement("p");
+    showRuntime.innerText = `Runtime: ${show.runtime}`;
+
+    extraInfoBox.append(showRating, showGenre, showStatus, showRuntime);
+
+    // append show image, p, details to showDetailsBox
+    showDetailsBox.append(showImgBox, showPElement, extraInfoBox);
+
+    // append episode cards to container div with id root
+    showCardContainer.append(showCard);
+
+    // append created elements to episodeCard
+    showCard.append(showHeaderElement, showDetailsBox);
+
+    // ADD CLASSES
+    // episodeCard.classList.add("episode-card");
+    // episodeImgElement.classList.add("episode-image");
+    // episodeTitleElement.classList.add("episode-title");
+    // episodePElement.classList.add("episode-summary-text");
+    // episodeSummaryBox.classList.add("episode-summary-section");
+  }
+
+  // add a class to the root element to get some grid going
+  rootElem.append(showCardContainer);
 }
 
 function createHeader() {
@@ -80,6 +152,22 @@ function createShowsDropDownMenu() {
 
   let header = document.getElementById("page-header");
   header.append(dropDownMenuElement);
+}
+
+function loadNewShow() {
+  let showDropDownMenu = document.getElementById("show-select");
+  let showDropDownChoice = showDropDownMenu.value;
+
+  showDropDownMenu.addEventListener("change", populateNewEpisodes);
+
+  function populateNewEpisodes() {
+    showDropDownChoice = showDropDownMenu.value;
+    let showURL = `https://api.tvmaze.com/shows/${showDropDownChoice}/episodes`;
+
+    // before making cards for new show, clear html
+    document.querySelector("#root").innerHTML = "";
+    getAllEpisodesFromAPI(showURL).then(makePageForEpisodes);
+  }
 }
 
 function createDropDownMenu(episodeList) {

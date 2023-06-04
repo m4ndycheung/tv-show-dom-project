@@ -18,7 +18,6 @@ body {
   margin-inline: auto;
 }
 
-/* How do I get each div to be the same height? */
 .episode-container {
   display: grid;
   gap: 2rem;
