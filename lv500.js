@@ -88,7 +88,12 @@ function createShowCards() {
     showRating.innerText = `Rating: ${show.rating.average}`;
     let showGenre = document.createElement("p");
     showGenre.innerText = `Genre(s): ${show.genres}`;
-    extraInfoBox.append(showRating, showGenre);
+    let showStatus = document.createElement("p");
+    showStatus.innerText = `Status: ${show.status}`;
+    let showRuntime = document.createElement("p");
+    showRuntime.innerText = `Runtime: ${show.runtime}`;
+
+    extraInfoBox.append(showRating, showGenre, showStatus, showRuntime);
 
     // append show image, p, details to showDetailsBox
     showDetailsBox.append(showImgBox, showPElement, extraInfoBox);
