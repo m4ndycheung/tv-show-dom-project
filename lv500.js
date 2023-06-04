@@ -72,6 +72,7 @@ function createShowCards() {
     // IMAGES
     let showImgBox = document.createElement("div");
     let showImgElement = document.createElement("img");
+
     // one of the shows has a null value for show.image.medium
     if (show.image === null) {
       showImgElement.src = ``;
@@ -82,9 +83,13 @@ function createShowCards() {
     showImgBox.append(showImgElement);
 
     // need to make the genre and time box too...*****
+    let extraInfoBox = document.createElement("div");
+    let showRating = document.createElement("p");
+    showRating.innerText = `${show.rating.average}`;
+    extraInfoBox.append(showRating);
 
     // append show image, p, details to showDetailsBox
-    showDetailsBox.append(showImgBox, showPElement);
+    showDetailsBox.append(showImgBox, showPElement, extraInfoBox);
 
     // append episode cards to container div with id root
     showCardContainer.append(showCard);
