@@ -23,20 +23,22 @@ async function getAllEpisodesFromAPI(url) {
 // use shows drop down menu
 // use the search bar code
 
-// function makePageForEpisodes(episodeList) {
-//   createHeader();
-//   createShowsDropDownMenu();
-//   loadNewShow();
-//   createDropDownMenu(episodeList);
-//   useDropdownToJumpToEpisode(episodeList);
-//   createSearchbar();
-//   createEpisodeCounter(episodeList);
-//   createEpisodeCards(episodeList);
-//   createFooter();
-// }
+// Only invoke this when showcard is clicked or selected in dropdown
+function makePageForEpisodes(episodeList) {
+  // createHeader();
+  // createShowsDropDownMenu();
+  // loadNewShow();
+  // createDropDownMenu(episodeList);
+  // useDropdownToJumpToEpisode(episodeList);
+  // createSearchbar();
+  // createEpisodeCounter(episodeList);
+  createEpisodeCards(episodeList);
+  // createFooter();
+}
 
 function makePageForShows() {
   createShowCards();
+  loadEpisodesForShowByClick();
 }
 
 // *********************************
@@ -56,8 +58,7 @@ function createShowCards() {
 
     // div that contains all episode data
     let showCard = document.createElement("div");
-    ////////////////// Assign episodeCards an ID
-    showCard.id = "S" + show.id;
+    showCard.id = show.id;
 
     // EPISODE SUMMARY TEXT
     let showDetailsBox = document.createElement("div");
@@ -151,18 +152,37 @@ function createShowsDropDownMenu() {
   header.append(dropDownMenuElement);
 }
 
-function loadNewShow() {
-  let showDropDownMenu = document.getElementById("show-select");
-  let showDropDownChoice = showDropDownMenu.value;
+// function loadNewShow() {
+//   let showDropDownMenu = document.getElementById("show-select");
+//   let showDropDownChoice = showDropDownMenu.value;
 
-  showDropDownMenu.addEventListener("change", populateNewEpisodes);
+//   showDropDownMenu.addEventListener("change", populateNewEpisodes);
+
+//   function populateNewEpisodes() {
+//     showDropDownChoice = showDropDownMenu.value;
+//     let showURL = `https://api.tvmaze.com/shows/${showDropDownChoice}/episodes`;
+
+//     // before making cards for new show, clear html
+//     document.querySelector("#root").innerHTML = "";
+//     getAllEpisodesFromAPI(showURL).then(makePageForEpisodes);
+//   }
+// }
+
+// ******************************************** HERE
+function loadEpisodesForShowByClick() {
+  let showCard = document.querySelectorAll(".show-card");
+
+  Array.from(showCard).forEach((show) => {
+    show.addEventListener("click", populateNewEpisodes);
+  });
 
   function populateNewEpisodes() {
-    showDropDownChoice = showDropDownMenu.value;
-    let showURL = `https://api.tvmaze.com/shows/${showDropDownChoice}/episodes`;
+    let showID = this.id;
+    let showURL = `https://api.tvmaze.com/shows/${showID}/episodes`;
 
     // before making cards for new show, clear html
     document.querySelector("#root").innerHTML = "";
+
     getAllEpisodesFromAPI(showURL).then(makePageForEpisodes);
   }
 }
