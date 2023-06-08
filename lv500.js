@@ -105,11 +105,8 @@ function createShowCards() {
     showCard.append(showHeaderElement, showDetailsBox);
 
     // ADD CLASSES
-    // episodeCard.classList.add("episode-card");
-    // episodeImgElement.classList.add("episode-image");
-    // episodeTitleElement.classList.add("episode-title");
-    // episodePElement.classList.add("episode-summary-text");
-    // episodeSummaryBox.classList.add("episode-summary-section");
+    showCard.classList.add("show-card");
+    showDetailsBox.classList.add("details-box");
   }
 
   // add a class to the root element to get some grid going

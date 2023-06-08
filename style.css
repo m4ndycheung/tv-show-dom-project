@@ -18,6 +18,15 @@ body {
   margin-inline: auto;
 }
 
+.show-card {
+  border: solid 3px lightcoral;
+}
+
+.details-box {
+  border: solid 2px greenyellow;
+  display: flex;
+}
+
 .episode-container {
   display: grid;
   gap: 2rem;
