@@ -25,15 +25,15 @@ async function getAllEpisodesFromAPI(url) {
 
 // Only invoke this when showcard is clicked or selected in dropdown
 function makePageForEpisodes(episodeList) {
-  // createHeader();
-  // createShowsDropDownMenu();
+  createHeader();
+  createShowsDropDownMenu();
   // loadNewShow();
-  // createDropDownMenu(episodeList);
-  // useDropdownToJumpToEpisode(episodeList);
-  // createSearchbar();
-  // createEpisodeCounter(episodeList);
+  createDropDownMenu(episodeList);
+  useDropdownToJumpToEpisode(episodeList);
+  createSearchbar();
+  createEpisodeCounter(episodeList);
   createEpisodeCards(episodeList);
-  // createFooter();
+  createFooter();
 }
 
 function makePageForShows() {
@@ -51,11 +51,6 @@ function createShowCards() {
   // MAKE EPISODE CARDS
   // loop to do stuff to each episode in the array object
   for (const show of showsList) {
-    // 1. create some elements (divs, h3, img, p)
-    // 2. assign content to those elements
-    // 3. assign some classes to elements -- I might do this at the end (styling last)
-    // 4. remember to append child elements to parents
-
     // div that contains all episode data
     let showCard = document.createElement("div");
     showCard.id = show.id;
